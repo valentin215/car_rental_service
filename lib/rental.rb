@@ -16,8 +16,4 @@ class Rental
   def rental_days
     (@end_date - @start_date).to_i + 1
   end
-
-  def calculate_price(car)
-    (rental_days * car.price_per_day) + (distance * car.price_per_km)
-  end
 end
