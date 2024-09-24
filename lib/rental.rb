@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "date"
+require_relative "car_repository"
 
 class Rental
   attr_reader :id, :car_id, :start_date, :end_date, :distance
@@ -14,6 +15,10 @@ class Rental
   end
 
   def rental_days
-    (@end_date - @start_date).to_i + 1
+    (end_date - start_date).to_i + 1
+  end
+
+  def car
+    CarRepository.repo.find(car_id)
   end
 end

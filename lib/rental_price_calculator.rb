@@ -1,40 +1,28 @@
 # frozen_string_literal: true
 
 class RentalPriceCalculator
-  class << self
-    def call(cars, rentals)
-      new(cars, rentals).calculate_prices
-    end
+  attr_reader :rental, :car
+
+  def initialize(rental, car)
+    @car = car
+    @rental = rental
   end
 
-  attr_reader :cars, :rentals
+  def price = days_price + distance_price
 
-  def initialize(cars, rentals)
-    @cars = cars
-    @rentals = rentals
-  end
+  def insurance_fee = (commission * 0.5).to_i
 
-  def calculate_prices
-    rentals.map do |rental|
-      car = associated_car(rental_car_id: rental.car_id)
+  def assistance_fee = rental.rental_days * 100
 
-      {id: rental.id, price: price(rental, car)}
-    end
-  end
+  def drivy_fee = (insurance_fee - assistance_fee).to_i
 
   private
 
-  def price(rental, car)
-    days_price(rental, car) + distance_price(rental, car)
-  end
+  def commission = price * 0.3
 
-  def associated_car(rental_car_id:) = cars.find { _1.id == rental_car_id }
+  def distance_price = rental.distance * car.price_per_km
 
-  def distance_price(rental, car)
-    rental.distance * car.price_per_km
-  end
-
-  def days_price(rental, car)
+  def days_price
     (1..rental.rental_days).sum do |day|
       case day
       when 1 then car.price_per_day
