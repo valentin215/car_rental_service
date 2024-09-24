@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class RentalPriceCalculator
-  attr_reader :rental, :car
-
   def initialize(rental, car)
     @car = car
     @rental = rental
   end
+
+  attr_reader :rental, :car
 
   def price = days_price + distance_price
 

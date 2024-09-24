@@ -1,34 +1,28 @@
 class JsonRentalsBuilder
   class << self
-    def call(rentals, calculator)
-      new(rentals, calculator).build_json
+    def call(rentals, calculator, builder)
+      new(rentals, calculator, builder).build_json
     end
   end
 
-  def initialize(rentals, calculator)
+  def initialize(rentals, calculator, builder)
     @rentals = rentals
     @calculator = calculator
+    @builder = builder
   end
 
-  attr_reader :rentals, :calculator
+  attr_reader :rentals, :calculator, :builder
 
   def build_json = JSON.pretty_generate({rentals: rentals_data})
 
   private
 
   def rentals_data
-    rentals.map do |rental|
-      instance = calculator.new(rental, rental.car)
+    @result = rentals.map do |rental|
+      calculator_instance = calculator.new(rental, rental.car)
+      builder_instance = builder.new(calculator_instance)
 
-      {
-        id: rental.id,
-        price: instance.price,
-        commission: {
-          insurance_fee: instance.insurance_fee,
-          assistance_fee: instance.assistance_fee,
-          drivy_fee: instance.drivy_fee
-        }
-      }
+      {id: rental.id, actions: builder_instance.build}
     end
   end
 end
