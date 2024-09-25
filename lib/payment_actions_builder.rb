@@ -1,17 +1,17 @@
 class PaymentActionsBuilder
-  def initialize(rental_price_calculator)
-    @calculator = rental_price_calculator
+  def initialize(calculator)
+    @calculator = calculator
   end
 
   attr_reader :calculator
 
   def build
     [
-      payment("driver", "debit", calculator.price),
-      payment("owner", "credit", owner_amount),
-      payment("insurance", "credit", calculator.insurance_fee),
-      payment("assistance", "credit", calculator.assistance_fee),
-      payment("drivy", "credit", calculator.drivy_fee)
+      payment("driver", "debit", driver_payment),
+      payment("owner", "credit", owner_payment),
+      payment("insurance", "credit", insurance_payment),
+      payment("assistance", "credit", assistance_payment),
+      payment("drivy", "credit", drivy_payment)
     ]
   end
 
@@ -21,7 +21,23 @@ class PaymentActionsBuilder
     {who: who, type: type, amount: amount}
   end
 
-  def owner_amount
-    calculator.price - calculator.insurance_fee - calculator.assistance_fee - calculator.drivy_fee
+  def driver_payment
+    calculator.price + calculator.additional_insurance_fee + calculator.gps_fee + calculator.baby_seat_fee
+  end
+
+  def owner_payment
+    calculator.price + calculator.gps_fee + calculator.baby_seat_fee - calculator.insurance_fee - calculator.assistance_fee - calculator.drivy_fee
+  end
+
+  def insurance_payment
+    calculator.insurance_fee
+  end
+
+  def assistance_payment
+    calculator.assistance_fee
+  end
+
+  def drivy_payment
+    calculator.drivy_fee + calculator.additional_insurance_fee
   end
 end

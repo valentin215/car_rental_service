@@ -22,7 +22,7 @@ class JsonRentalsBuilder
       calculator_instance = calculator.new(rental, rental.car)
       builder_instance = builder.new(calculator_instance)
 
-      {id: rental.id, actions: builder_instance.build}
+      {id: rental.id, options: rental.options_list, actions: builder_instance.build}
     end
   end
 end

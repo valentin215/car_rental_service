@@ -16,6 +16,21 @@ class RentalPriceCalculator
 
   def drivy_fee = (insurance_fee - assistance_fee).to_i
 
+  def gps_fee
+    return 0 unless rental.gps?
+    rental.rental_days * 500
+  end
+
+  def baby_seat_fee
+    return 0 unless rental.baby_seat?
+    rental.rental_days * 200
+  end
+
+  def additional_insurance_fee
+    return 0 unless rental.additional_insurance?
+    rental.rental_days * 1000
+  end
+
   private
 
   def commission = price * 0.3
