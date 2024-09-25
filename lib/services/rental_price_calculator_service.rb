@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RentalPriceCalculator
+class RentalPriceCalculatorService
   def initialize(rental, car)
     @car = car
     @rental = rental

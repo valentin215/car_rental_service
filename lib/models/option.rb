@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Option
   attr_reader :id, :rental_id, :type
 

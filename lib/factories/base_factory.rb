@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Factory
+class BaseFactory
   def self.build(data)
     data.map { build_item(_1) }
   end

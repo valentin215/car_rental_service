@@ -1,5 +1,8 @@
 class JsonRentalsBuilder
   class << self
+    # @param rentals [Array<Rental>]
+    # @param calculator [Class<RentalPriceCalculatorService>]
+    # @param builder [Class<PaymentActionsBuilder>]
     def call(rentals, calculator, builder)
       new(rentals, calculator, builder).build_json
     end
@@ -18,7 +21,7 @@ class JsonRentalsBuilder
   private
 
   def rentals_data
-    @result = rentals.map do |rental|
+    rentals.map do |rental|
       calculator_instance = calculator.new(rental, rental.car)
       builder_instance = builder.new(calculator_instance)
 

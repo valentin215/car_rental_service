@@ -1,4 +1,5 @@
 class PaymentActionsBuilder
+  # @param calculator [Instance<RentalPriceCalculatorService>]
   def initialize(calculator)
     @calculator = calculator
   end

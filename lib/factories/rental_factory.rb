@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "factory"
+require_relative "base_factory"
 
-class RentalFactory < Factory
+class RentalFactory < BaseFactory
   def self.build_item(rental_data)
     Rental.new(
       rental_data[:id],

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "date"
-require_relative "car_repository"
-require_relative "option_repository"
+require_relative "../repositories/car_repository"
+require_relative "../repositories/option_repository"
 
 class Rental
   attr_reader :id, :car_id, :start_date, :end_date, :distance
