@@ -20,7 +20,6 @@ The final commit includes a comprehensive refactoring of the codebase. This refa
 
 ## Remarks
 
-1. I've decided to use a repository pattern to "fake" a DB.
+1. I've decided to use a repository pattern with a singleton to "fake" a DB.
 2. I've coupled the fetch of data, options and car, in the `Rental` class. This is not a good practice (aka ActiveRecord coupled with models in Rails) but I've decided to keep it 
-   simple and it would be overkill for the test to use a query service pattern.
-3. We could move also builders into the services directory as the builder pattern does not really exist. 
+   simple and it would be overkill for the test to use a query service pattern :).  
